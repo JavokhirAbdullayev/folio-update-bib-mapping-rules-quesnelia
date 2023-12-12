@@ -41,7 +41,7 @@ public class UpdateMappingRulesService {
     private void updateMappingRules() {
         JsonNode existingMappingRules = srmClient.retrieveMappingRules(MARC_BIB);
 
-        ObjectNode quesneliaClassificationRules = FileWorker.getJsonObject(QUESNELIA_MAPPING_RULES_PATH + "fieldMappingRules.json");
+        ObjectNode quesneliaClassificationRules = FileWorker.getJsonObject(QUESNELIA_MAPPING_RULES_PATH + "updateSubfieldfieldMappingRules.json");
 
         if (!quesneliaClassificationRules.isEmpty()) {
             MappingRulesUtil.replaceMappingRulesForMarcFields(quesneliaClassificationRules, (ObjectNode) existingMappingRules);
