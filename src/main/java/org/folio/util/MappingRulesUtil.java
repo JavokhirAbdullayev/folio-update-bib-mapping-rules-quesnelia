@@ -10,8 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MappingRulesUtil {
 
+    private static ObjectMapper mapper = new ObjectMapper();
+
     public static void replaceMappingRulesForMarcFields(List<String> rulesReplacement, ObjectNode targetMappingRules) {
-        ObjectMapper mapper = new ObjectMapper();
         rulesReplacement.forEach(marcFieldRule -> {
             JsonNode marcRulesNode = targetMappingRules.get(marcFieldRule);
             if (marcRulesNode == null || !marcRulesNode.isArray() || marcRulesNode.size() == 0) {

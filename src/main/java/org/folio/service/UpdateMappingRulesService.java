@@ -4,7 +4,6 @@ import static org.folio.FolioMappingRulesUpdateApp.exitWithMessage;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.util.Collections;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.folio.client.AuthClient;
@@ -19,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UpdateMappingRulesService {
 
-    private static final List<String> rules = Collections.unmodifiableList(List.of("100", "110", "111"));
+    private static final List<String> rules = List.of("100", "110", "111");
     private Configuration configuration;
     private SRMClient srmClient;
     private String MARC_BIB = "marc-bib";
