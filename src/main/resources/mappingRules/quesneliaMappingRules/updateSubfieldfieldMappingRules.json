@@ -1,8 +1,6 @@
 {
   "100": [
     {
-      "entity": [
-        {
           "target": "contributors.name",
           "description": "Personal Name",
           "subfield": [
@@ -32,83 +30,10 @@
               ]
             }
           ]
-        },
-        {
-          "target": "contributors.authorityId",
-          "description": "Authority ID that controlling the contributor",
-          "applyRulesOnConcatenatedData": true,
-          "subfield": [
-            "9"
-          ]
-        },
-        {
-          "target": "contributors.contributorNameTypeId",
-          "description": "Type for Personal Name",
-          "applyRulesOnConcatenatedData": true,
-          "subfield": [
-          ],
-          "rules": [
-            {
-              "conditions": [
-                {
-                  "type": "set_contributor_name_type_id",
-                  "parameter": {
-                    "name": "Personal name"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "rules": [
-            {
-              "conditions": [
-                {
-                  "type": "set_contributor_type_id_by_code_or_name",
-                  "parameter": {
-                    "contributorCodeSubfield": "4",
-                    "contributorNameSubfield": "e"
-                  }
-                }
-              ]
-            }
-          ],
-          "target": "contributors.contributorTypeId",
-          "subfield": [
-            "4",
-            "e"
-          ],
-          "description": "Type of contributor",
-          "alternativeMapping": {
-            "target": "contributors.contributorTypeText",
-            "subfield": [
-              "e"
-            ],
-            "ignoreSubsequentSubfields": true
-          },
-          "applyRulesOnConcatenatedData": true
-        },
-        {
-          "target": "contributors.primary",
-          "description": "Primary contributor",
-          "applyRulesOnConcatenatedData": true,
-          "subfield": [
-          ],
-          "rules": [
-            {
-              "conditions": [],
-              "value": "true"
-            }
-          ]
         }
-      ]
-    }
   ],
   "110": [
     {
-      "entity": [
-        {
           "target": "contributors.name",
           "description": "Corporate Name",
           "subfield": [
@@ -136,83 +61,10 @@
               ]
             }
           ]
-        },
-        {
-          "target": "contributors.authorityId",
-          "description": "Authority ID that controlling the contributor",
-          "applyRulesOnConcatenatedData": true,
-          "subfield": [
-            "9"
-          ]
-        },
-        {
-          "target": "contributors.contributorNameTypeId",
-          "description": "Type for Corporate Name",
-          "applyRulesOnConcatenatedData": true,
-          "subfield": [
-          ],
-          "rules": [
-            {
-              "conditions": [
-                {
-                  "type": "set_contributor_name_type_id",
-                  "parameter": {
-                    "name": "Corporate name"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "rules": [
-            {
-              "conditions": [
-                {
-                  "type": "set_contributor_type_id_by_code_or_name",
-                  "parameter": {
-                    "contributorCodeSubfield": "4",
-                    "contributorNameSubfield": "e"
-                  }
-                }
-              ]
-            }
-          ],
-          "target": "contributors.contributorTypeId",
-          "subfield": [
-            "4",
-            "e"
-          ],
-          "description": "Type of contributor",
-          "alternativeMapping": {
-            "target": "contributors.contributorTypeText",
-            "subfield": [
-              "e"
-            ],
-            "ignoreSubsequentSubfields": true
-          },
-          "applyRulesOnConcatenatedData": true
-        },
-        {
-          "target": "contributors.primary",
-          "description": "Primary contributor",
-          "applyRulesOnConcatenatedData": true,
-          "subfield": [
-          ],
-          "rules": [
-            {
-              "conditions": [],
-              "value": "true"
-            }
-          ]
         }
-      ]
-    }
   ],
   "111": [
     {
-      "entity": [
-        {
           "target": "contributors.name",
           "description": "Meeting Name",
           "subfield": [
@@ -240,77 +92,6 @@
               ]
             }
           ]
-        },
-        {
-          "target": "contributors.authorityId",
-          "description": "Authority ID that controlling the contributor",
-          "applyRulesOnConcatenatedData": true,
-          "subfield": [
-            "9"
-          ]
-        },
-        {
-          "target": "contributors.contributorNameTypeId",
-          "description": "Type for Meeting Name",
-          "applyRulesOnConcatenatedData": true,
-          "subfield": [
-          ],
-          "rules": [
-            {
-              "conditions": [
-                {
-                  "type": "set_contributor_name_type_id",
-                  "parameter": {
-                    "name": "Meeting name"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "rules": [
-            {
-              "conditions": [
-                {
-                  "type": "set_contributor_type_id_by_code_or_name",
-                  "parameter": {
-                    "contributorCodeSubfield": "4",
-                    "contributorNameSubfield": "j"
-                  }
-                }
-              ]
-            }
-          ],
-          "target": "contributors.contributorTypeId",
-          "subfield": [
-            "4",
-            "j"
-          ],
-          "description": "Type of contributor",
-          "alternativeMapping": {
-            "target": "contributors.contributorTypeText",
-            "subfield": [
-              "j"
-            ],
-            "ignoreSubsequentSubfields": true
-          },
-          "applyRulesOnConcatenatedData": true
-        },
-        {
-          "target": "contributors.primary",
-          "description": "Primary contributor",
-          "applyRulesOnConcatenatedData": true,
-          "subfield": [
-          ],
-          "rules": [
-            {
-              "conditions": [],
-              "value": "true"
-            }
-          ]
         }
-      ]
-    }
   ]
 }
