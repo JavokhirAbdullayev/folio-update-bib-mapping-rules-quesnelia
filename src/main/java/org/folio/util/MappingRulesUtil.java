@@ -4,23 +4,24 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MappingRulesUtil {
 
-    public static void replaceMappingRulesForMarcFields(ObjectNode rulesReplacement, ObjectNode targetMappingRules) {
+    public static void replaceMappingRulesForMarcFields(List<String> rulesReplacement, ObjectNode targetMappingRules) {
         ObjectMapper mapper = new ObjectMapper();
-        rulesReplacement.fields().forEachRemaining(marcFieldRule -> {
-            JsonNode marcRulesNode = targetMappingRules.get(marcFieldRule.getKey());
+        rulesReplacement.forEach(marcFieldRule -> {
+            JsonNode marcRulesNode = targetMappingRules.get(marcFieldRule);
             if (marcRulesNode == null || !marcRulesNode.isArray() || marcRulesNode.size() == 0) {
-                log.warn("No rules found for MARC field \"{}\"", marcFieldRule.getKey());
+                log.warn("No rules found for MARC field \"{}\"", marcFieldRule);
                 return;
             }
 
             ArrayNode entities = (ArrayNode) marcRulesNode.get(0).get("entity");
             if (entities == null) {
-                log.warn("No entities found for MARC field \"{}\"", marcFieldRule.getKey());
+                log.warn("No entities found for MARC field \"{}\"", marcFieldRule);
                 return;
             }
 
@@ -38,8 +39,8 @@ public class MappingRulesUtil {
             ObjectNode entityWrapper = mapper.createObjectNode();
             entityWrapper.set("entity", entities);
             ArrayNode entityArray = mapper.createArrayNode().add(entityWrapper);
-            targetMappingRules.set(marcFieldRule.getKey(), entityArray);
-            log.info("Mapping rules for MARC field \"{}\" have been updated", marcFieldRule.getKey());
+            targetMappingRules.set(marcFieldRule, entityArray);
+            log.info("Mapping rules for MARC field \"{}\" have been updated", marcFieldRule);
         });
     }
 
