@@ -18,7 +18,9 @@ import static org.folio.FolioMappingRulesUpdateApp.exitWithError;
 @Setter
 public class HttpWorker {
     private final Configuration configuration;
-    private String okapiToken;
+    private String cookie;
+
+    private static final String CONTENT_TYPE = "Content-Type";
 
     public HttpWorker(Configuration configuration) {
         this.configuration = configuration;
@@ -35,7 +37,7 @@ public class HttpWorker {
     @SneakyThrows
     public HttpRequest constructPOSTRequest(String uri, String body) {
         return constructRequest(uri)
-                .header("Content-Type", "application/json")
+                .header(CONTENT_TYPE, "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();
     }
@@ -43,7 +45,7 @@ public class HttpWorker {
     @SneakyThrows
     public HttpRequest constructPOSTRequest(String uri, Path filePath) {
         return constructRequest(uri)
-                .header("Content-Type", "application/octet-stream")
+                .header(CONTENT_TYPE, "application/octet-stream")
                 .POST(HttpRequest.BodyPublishers.ofByteArray(Files.readAllBytes(filePath)))
                 .build();
     }
@@ -51,7 +53,7 @@ public class HttpWorker {
     @SneakyThrows
     public HttpRequest constructPUTRequest(String uri, String body) {
         return constructRequest(uri)
-                .header("Content-Type", "application/json")
+                .header(CONTENT_TYPE, "application/json")
                 .PUT(HttpRequest.BodyPublishers.ofString(body))
                 .build();
     }
@@ -61,8 +63,8 @@ public class HttpWorker {
                 .uri(URI.create(configuration.getOkapiUrl() + uri))
                 .header("x-okapi-tenant", configuration.getTenant());
 
-        if (okapiToken != null) {
-            builder.header("x-okapi-token", okapiToken);
+        if (cookie != null) {
+            builder.header("Cookie", cookie);
         }
         return builder;
     }

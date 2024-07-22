@@ -3,11 +3,11 @@ package org.folio.client;
 import org.folio.model.Configuration;
 import org.folio.util.HttpWorker;
 
-import static org.folio.mapper.ResponseMapper.mapResponseToJson;
+import java.net.http.HttpResponse;
 
 public class AuthClient {
     private static final String BODY_FORMAT = "{\"username\": \"%s\",\"password\": \"%s\"}";
-    private static final String AUTH_PATH = "/authn/login";
+    private static final String AUTH_PATH = "/authn/login-with-expiry";
     private final Configuration configuration;
     private final HttpWorker httpWorker;
 
@@ -24,6 +24,18 @@ public class AuthClient {
 
         httpWorker.verifyStatus(response, 201, "Failed to authorize user");
 
-        return mapResponseToJson(response).findValue("okapiToken").asText();
+        return getCookie(response);
+    }
+
+    private String getCookie(HttpResponse<String> response) {
+        var result = new StringBuilder();
+        for (String token : response.headers().allValues("set-cookie")) {
+            var tokenPart = token.split(";")[0];
+            result.append(tokenPart).append("; ");
+        }
+        if (!result.isEmpty()) {
+            result.setLength(result.length() - 2);
+        }
+        return result.toString();
     }
 }

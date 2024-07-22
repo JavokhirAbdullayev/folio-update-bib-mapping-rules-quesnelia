@@ -21,14 +21,14 @@ public class UpdateMappingRulesService {
     private static final List<String> rules = List.of("100", "110", "111");
     private Configuration configuration;
     private SRMClient srmClient;
-    private String MARC_BIB = "marc-bib";
+    private static final String MARC_BIB = "marc-bib";
 
     public void start() {
         configuration = FileWorker.getConfiguration();
         var httpWorker = new HttpWorker(configuration);
         var authClient = new AuthClient(configuration, httpWorker);
         
-        httpWorker.setOkapiToken(authClient.authorize());
+        httpWorker.setCookie(authClient.authorize());
         srmClient = new SRMClient(httpWorker);
 
         updateMappingRules();
