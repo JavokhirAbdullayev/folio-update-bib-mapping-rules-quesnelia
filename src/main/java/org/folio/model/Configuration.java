@@ -12,6 +12,7 @@ import lombok.Setter;
 public class Configuration {
     private String okapiUrl;
     private String tenant;
+    private String centralTenant;
     private String username;
     private String password;
 }

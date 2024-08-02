@@ -14,13 +14,14 @@ import java.nio.file.Path;
 
 import static org.folio.FolioMappingRulesUpdateApp.exitWithError;
 
-
 @Setter
 public class HttpWorker {
     private final Configuration configuration;
     private String cookie;
 
     private static final String CONTENT_TYPE = "Content-Type";
+    private static final String AUTH_PATH = "/authn/login-with-expiry";
+    private static final String APPLICATION_JSON = "application/json";
 
     public HttpWorker(Configuration configuration) {
         this.configuration = configuration;
@@ -37,7 +38,25 @@ public class HttpWorker {
     @SneakyThrows
     public HttpRequest constructPOSTRequest(String uri, String body) {
         return constructRequest(uri)
-                .header(CONTENT_TYPE, "application/json")
+                .header(CONTENT_TYPE, APPLICATION_JSON)
+                .POST(HttpRequest.BodyPublishers.ofString(body))
+                .build();
+    }
+
+    @SneakyThrows
+    public HttpRequest constructAuthRequest(String body) {
+        var loginTenantId = configuration.getCentralTenant() == null ?
+                configuration.getTenant() : configuration.getCentralTenant();
+
+        var builder = HttpRequest.newBuilder()
+                .uri(URI.create(configuration.getOkapiUrl() + AUTH_PATH))
+                .header("x-okapi-tenant", loginTenantId);
+
+        if (cookie != null) {
+            builder.header("Cookie", cookie);
+        }
+        return builder
+                .header(CONTENT_TYPE, APPLICATION_JSON)
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();
     }
@@ -53,7 +72,7 @@ public class HttpWorker {
     @SneakyThrows
     public HttpRequest constructPUTRequest(String uri, String body) {
         return constructRequest(uri)
-                .header(CONTENT_TYPE, "application/json")
+                .header(CONTENT_TYPE, APPLICATION_JSON)
                 .PUT(HttpRequest.BodyPublishers.ofString(body))
                 .build();
     }
