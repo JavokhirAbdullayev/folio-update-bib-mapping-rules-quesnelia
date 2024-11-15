@@ -32,7 +32,7 @@ public class AuthClient {
             var tokenPart = token.split(";")[0];
             result.append(tokenPart).append("; ");
         }
-        if (!result.isEmpty()) {
+        if (!result.toString().isEmpty()) {
             result.setLength(result.length() - 2);
         }
         return result.toString();
